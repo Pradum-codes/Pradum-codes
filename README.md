@@ -18,4 +18,10 @@
 ### ✍️ Random Dev Quote
 ![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical)
 
+## 📊 Weekly Development Breakdown
+
+![My WakaTime Stats](https://wakatime.com/share/@atomic_panda/a8c22955-9587-49d5-9d67-17e0db3c73cd.svg)
+
+
+
 <!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
