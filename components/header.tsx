@@ -2,12 +2,14 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Sun, Moon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Logo from "./logo"
+import { useTheme } from "next-themes"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { theme, setTheme } = useTheme()
 
   const navItems = [
     { href: "#home", label: "Home" },
@@ -19,45 +21,70 @@ export function Header() {
 
   return (
     <header className="fixed top-0 w-full bg-background/80 backdrop-blur-sm border-b z-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center py-4">
-                <Logo/>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center py-4">
+          <Logo variant="full"/>
 
-                {/* Desktop Navigation */}
-                <nav className="hidden md:flex space-x-8">
-                    {navItems.map((item) => (
-                    <Link
-                        key={item.href}
-                        href={item.href}
-                        className="text-muted-foreground hover:text-primary transition-colors"
-                    >
-                        {item.label}
-                    </Link>
-                    ))}
-                </nav>
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-6">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                {item.label}
+              </Link>
+            ))}
+
+            {/* Theme Toggle */}
+            <button
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="text-muted-foreground hover:text-primary transition-colors flex items-center"
+            >
+              {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              <span className="sr-only">Toggle theme</span>
+            </button>
+          </nav>
+
+          {/* Right side: Theme toggle + Mobile Menu */}
+          <div className="flex items-center space-x-2 md:hidden">
+            {/* Theme Toggle (always visible on mobile) */}
+            <button
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="text-muted-foreground hover:text-primary transition-colors flex items-center"
+            >
+              {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              <span className="sr-only">Toggle theme</span>
+            </button>
 
             {/* Mobile Menu Button */}
-                <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                    {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-                </Button>
-            </div>
-
-            {/* Mobile Navigation */}
-            {isMenuOpen && (
-                <nav className="md:hidden py-4 border-t">
-                    {navItems.map((item) => (
-                    <Link
-                        key={item.href}
-                        href={item.href}
-                        className="block py-2 text-muted-foreground hover:text-primary transition-colors"
-                        onClick={() => setIsMenuOpen(false)}
-                    >
-                        {item.label}
-                    </Link>
-                    ))}
-                </nav>
-            )}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </Button>
+          </div>
         </div>
+
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <nav className="md:hidden py-4 border-t">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="block py-2 text-muted-foreground hover:text-primary transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+        )}
+      </div>
     </header>
   )
 }

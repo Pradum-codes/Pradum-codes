@@ -1,35 +1,61 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Mail, MapPin, Phone } from "lucide-react"
+import { toast } from "sonner"
 
 export function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  })
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle form submission here
-    console.log("Form submitted:", formData)
-    // Reset form
-    setFormData({ name: "", email: "", message: "" })
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
+    const [loading, setLoading] = useState(false)
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        message: "",
     })
-  }
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            toast.error("Invalid email", { description: "Please enter a valid email address." })
+            return;
+        }
+
+        setLoading(true);
+        try {
+            const res = await fetch("/api/send", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
+
+            if (res.ok) {
+                toast.success("Message sent!", {
+                    description: "Thanks for reaching out. I'll reply soon.",
+                });
+                setFormData({ name: "", email: "", message: "" });
+            } else {
+                toast.error("Failed to send", { description: "Please try again later." });
+            }
+        } catch (err) {
+            toast.error("Something went wrong", { description: "Check your connection and try again." });
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setFormData({
+        ...formData,
+        [e.target.name]: e.target.value,
+        })
+    }
 
   return (
     <section id="contact" className="py-20">
@@ -91,9 +117,9 @@ export function Contact() {
                       required
                     />
                   </div>
-                  <Button type="submit" className="w-full">
-                    Send Message
-                  </Button>
+                    <Button type="submit" className="w-full" disabled={loading}>
+                        {loading ? "Sending..." : "Send Message"}
+                    </Button>
                 </form>
               </CardContent>
             </Card>

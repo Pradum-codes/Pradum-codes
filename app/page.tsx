@@ -7,7 +7,7 @@ import { Contact } from "@/components/contact"
 import { Footer } from "@/components/footer"
 
 export default function Portfolio() {
-  return (
+    return (
     <div className="min-h-screen bg-background">
       <Header />
       <main>

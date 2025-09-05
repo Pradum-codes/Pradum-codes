@@ -24,16 +24,16 @@ export function Hero() {
           </div>
 
           <div className="flex justify-center space-x-6 mb-12">
-            <Link href="https://github.com" className="text-muted-foreground hover:text-primary transition-colors">
+            <Link href="https://github.com/Pradum-codes" className="text-muted-foreground hover:text-primary transition-colors">
               <Github className="h-6 w-6" />
               <span className="sr-only">GitHub</span>
             </Link>
-            <Link href="https://linkedin.com" className="text-muted-foreground hover:text-primary transition-colors">
+            <Link href="https://www.linkedin.com/in/pradum-kumar/" className="text-muted-foreground hover:text-primary transition-colors">
               <Linkedin className="h-6 w-6" />
               <span className="sr-only">LinkedIn</span>
             </Link>
             <Link
-              href="mailto:your.email@example.com"
+              href="mailto:pradumky803.com"
               className="text-muted-foreground hover:text-primary transition-colors"
             >
               <Mail className="h-6 w-6" />

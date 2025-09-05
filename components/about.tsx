@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
 import { Code, Palette, Zap } from "lucide-react"
 
@@ -11,7 +12,7 @@ export function About() {
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div>
               <p className="text-lg text-muted-foreground mb-6">
-                I'm a passionate full-stack developer with over 5 years of experience creating digital solutions that
+                I'm a passionate full-stack developer with over 2 years of experience creating digital solutions that
                 make a difference. I love turning complex problems into simple, beautiful, and intuitive designs.
               </p>
               <p className="text-lg text-muted-foreground mb-6">
@@ -22,10 +23,14 @@ export function About() {
                 I believe in writing clean, maintainable code and creating user experiences that delight and inspire.
               </p>
             </div>
-            <div className="flex justify-center">
-              <div className="w-64 h-64 bg-gradient-to-br from-primary to-primary/60 rounded-full flex items-center justify-center">
-                <span className="text-6xl">👨‍💻</span>
-              </div>
+            <div className="w-full flex justify-center">
+              <Image
+                src="/me.jpg"
+                alt="My picture"
+                width={300}
+                height={300}
+                className="rounded-full"
+              />
             </div>
           </div>
 
