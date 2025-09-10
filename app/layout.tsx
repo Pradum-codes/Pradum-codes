@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import { ThemeProvider } from 'next-themes'
 
-import './globals.css'
+import '@/styles/globals.css'
 import { Toaster } from '@/components/ui/sonner'
+import { Background } from '@/components/bacground/background1'
 
 export const metadata: Metadata = {
   title: 'Pradum Kumar',
@@ -18,6 +19,7 @@ export default function RootLayout({
     <html lang="en">
         <body>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+                <Background/>
                 {children}
                 <Toaster />
             </ThemeProvider>

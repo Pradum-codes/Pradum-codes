@@ -8,16 +8,16 @@ import { Footer } from "@/components/footer"
 
 export default function Portfolio() {
     return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+        <div className="relative min-h-screen z-0">
+            <Header />
+            <main>
+                <Hero />
+                <About />
+                <Skills />
+                <Projects />
+                <Contact />
+            </main>
+            <Footer />
+        </div>
   )
 }
