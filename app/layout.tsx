@@ -3,7 +3,7 @@ import { ThemeProvider } from 'next-themes'
 
 import '@/styles/globals.css'
 import { Toaster } from '@/components/ui/sonner'
-import { Background } from '@/components/bacground/background1'
+import { Background } from '@/components/bacground/background2'
 
 export const metadata: Metadata = {
   title: 'Pradum Kumar',
@@ -17,13 +17,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-        <body>
-            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-                <Background/>
-                {children}
-                <Toaster />
-            </ThemeProvider>
-        </body>
+      <body>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Background />
+          {children}
+          <Toaster />
+        </ThemeProvider>
+      </body>
     </html>
   )
 }

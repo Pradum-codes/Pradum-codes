@@ -8,8 +8,8 @@ const lineColor = '#c0c0c0';
 const lineOpacity = 0;
 const trailLength = 10; // Number of mouse positions for trailing effect
 const trailFadeDuration = 500; // Duration (ms) for trail to fade
-const pulseInterval = 1000; // Time (ms) between new pulses
-const pulseDuration = 2000; // Duration (ms) for each pulse
+const pulseInterval = 700; // Time (ms) between new pulses
+const pulseDuration = 1500; // Duration (ms) for each pulse
 const maxPulses = 5; // Maximum simultaneous pulsing cells
 
 export function Background() {
@@ -53,9 +53,9 @@ export function Background() {
       while (mouseHistory.current.length > trailLength) {
         mouseHistory.current.shift();
       }
-      if(cursor) {
-          cursor.style.left = `${e.clientX}px`;
-          cursor.style.top = `${e.clientY}px`;
+      if (cursor) {
+        cursor.style.left = `${e.clientX}px`;
+        cursor.style.top = `${e.clientY}px`;
       }
     }
 

@@ -8,7 +8,7 @@ import { Footer } from "@/components/footer"
 
 export default function Portfolio() {
     return (
-        <div className="relative min-h-screen z-0">
+        <div className="relative min-h-screen z-0 scroll-smooth">
             <Header />
             <main>
                 <Hero />
@@ -19,5 +19,5 @@ export default function Portfolio() {
             </main>
             <Footer />
         </div>
-  )
+    )
 }
