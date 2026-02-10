@@ -4,8 +4,9 @@ import { useEffect, useRef } from "react";
 import "@/styles/style.css";
 
 const cellSize = 70;
-const lineColor = '#c0c0c0';
-const lineOpacity = 0;
+const lineColor = '#222222';
+const lineOpacity = 0.08;
+const glowRGB = '154, 255, 120';
 const trailLength = 10; // Number of mouse positions for trailing effect
 const trailFadeDuration = 500; // Duration (ms) for trail to fade
 const pulseInterval = 700; // Time (ms) between new pulses
@@ -101,7 +102,7 @@ export function Background() {
         const opacity = Math.pow(1 - age / trailFadeDuration, 2); // Quadratic fade for smoother trail
 
         ctx.save();
-        ctx.shadowColor = `rgba(192,192,192,${0.8 * opacity})`;
+        ctx.shadowColor = `rgba(${glowRGB},${0.8 * opacity})`;
         ctx.shadowBlur = 16;
         ctx.globalAlpha = opacity;
         ctx.strokeStyle = lineColor;
@@ -128,7 +129,7 @@ export function Background() {
         const opacity = Math.sin((age / pulseDuration) * Math.PI); // Sinusoidal fade-in/fade-out
 
         ctx.save();
-        ctx.shadowColor = `rgba(192,192,192,${0.6 * opacity})`; // Slightly fainter than mouse trail
+        ctx.shadowColor = `rgba(${glowRGB},${0.6 * opacity})`; // Slightly fainter than mouse trail
         ctx.shadowBlur = 12;
         ctx.globalAlpha = opacity;
         ctx.strokeStyle = lineColor;
