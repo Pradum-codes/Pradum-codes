@@ -4,7 +4,7 @@ import { Space_Grotesk, IBM_Plex_Mono } from 'next/font/google'
 
 import '@/styles/globals.css'
 import { Toaster } from '@/components/ui/sonner'
-import { Background } from '@/components/bacground/background2'
+import { Background } from '@/components/bacground/background'
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -33,7 +33,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${spaceGrotesk.variable} ${plexMono.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          {/* <Background /> */}
+          <Background />
           {children}
           <Toaster />
         </ThemeProvider>

@@ -4,17 +4,21 @@ import { useEffect, useRef } from "react";
 import "@/styles/style.css";
 
 const cellSize = 70;
-const glowRadius = 70;
-const lineColor = '#c0c0c0';
-const lineOpacity = 0;
-const trailLength = 10; // Number of mouse positions to track for trail
+const lineColor = '#222222';
+const lineOpacity = 0.02;
+const glowRGB = '154, 255, 120';
+const trailLength = 7; // Number of mouse positions for trailing effect
 const trailFadeDuration = 500; // Duration (ms) for trail to fade
+const pulseInterval = 500; // Time (ms) between new pulses
+const pulseDuration = 1500; // Duration (ms) for each pulse
+const maxPulses = 10; // Maximum simultaneous pulsing cells
 
 export function Background() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
   const animationFrameRef = useRef<number>(0);
   const mouseHistory = useRef<{ x: number; y: number; timestamp: number }[]>([]);
+  const pulses = useRef<{ col: number; row: number; startTime: number }[]>([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -32,8 +36,10 @@ export function Background() {
     function resizeCanvas() {
       w = window.innerWidth;
       h = window.innerHeight;
-      canvas.width = w;
-      canvas.height = h;
+      if (canvas) {
+        canvas.width = w;
+        canvas.height = h;
+      }
       cols = Math.floor(w / cellSize);
       rows = Math.floor(h / cellSize);
     }
@@ -44,19 +50,28 @@ export function Background() {
       const now = performance.now();
       if (now - lastMouseMove < throttleDelay) return;
       lastMouseMove = now;
-
-      // Add new mouse position to history with timestamp
       mouseHistory.current.push({ x: e.clientX, y: e.clientY, timestamp: now });
-      // Remove old positions to keep trail length
       while (mouseHistory.current.length > trailLength) {
         mouseHistory.current.shift();
       }
-
-      cursor.style.left = `${e.clientX}px`;
-      cursor.style.top = `${e.clientY}px`;
+      if (cursor) {
+        cursor.style.left = `${e.clientX}px`;
+        cursor.style.top = `${e.clientY}px`;
+      }
     }
 
+    function addRandomPulse() {
+      if (pulses.current.length >= maxPulses) return;
+      const col = Math.floor(Math.random() * cols);
+      const row = Math.floor(Math.random() * rows);
+      pulses.current.push({ col, row, startTime: performance.now() });
+    }
+
+    // Start pulsing interval
+    const pulseTimer = setInterval(addRandomPulse, pulseInterval);
+
     function drawGrid() {
+      if (!ctx) return;
       ctx.clearRect(0, 0, w, h);
       ctx.save();
 
@@ -79,57 +94,54 @@ export function Background() {
         ctx.stroke();
       }
 
-      // Glowing arcs with trailing effect
+      // Glowing box borders (trailing effect)
       const now = performance.now();
       mouseHistory.current.forEach((pos, index) => {
-        // Calculate opacity based on age (older positions fade out)
         const age = now - pos.timestamp;
-        if (age > trailFadeDuration) return; // Skip expired positions
-        const opacity = 1 - age / trailFadeDuration; // Linear fade from 1 to 0
+        if (age > trailFadeDuration) return;
+        const opacity = Math.pow(1 - age / trailFadeDuration, 2); // Quadratic fade for smoother trail
 
         ctx.save();
-        ctx.shadowColor = `rgba(192,192,192,${0.8 * opacity})`;
-        ctx.shadowBlur = 16;
-        ctx.globalAlpha = opacity;
+        ctx.shadowColor = `rgba(${glowRGB},${0.5 * opacity})`; // Reduced from 0.8 to 0.3
+        ctx.shadowBlur = 12; // Reduced from 16 to 8
+        ctx.globalAlpha = opacity * 0.6; // Additional opacity reduction
         ctx.strokeStyle = lineColor;
-        ctx.lineWidth = 2.5;
+        ctx.lineWidth = 1.5; // Reduced from 2.5 to 1.5
 
-        // Vertical lines
-        for (let c = 0; c <= cols; ++c) {
-          const x = c * cellSize;
-          const dx = x - pos.x;
-          const rad2 = glowRadius * glowRadius;
-          if (Math.abs(dx) > glowRadius) continue;
-          const dy = Math.sqrt(rad2 - dx * dx);
-          let y1 = pos.y - dy;
-          let y2 = pos.y + dy;
-          y1 = Math.max(0, y1);
-          y2 = Math.min(h, y2);
-          if (y2 > y1) {
-            ctx.beginPath();
-            ctx.moveTo(x, y1);
-            ctx.lineTo(x, y2);
-            ctx.stroke();
-          }
+        const col = Math.floor(pos.x / cellSize);
+        const row = Math.floor(pos.y / cellSize);
+        const x = col * cellSize;
+        const y = row * cellSize;
+
+        if (x >= 0 && y >= 0 && x < w && y < h) {
+          ctx.beginPath();
+          ctx.strokeRect(x + 1, y + 1, cellSize - 2, cellSize - 2);
+          ctx.stroke();
         }
 
-        // Horizontal lines
-        for (let r = 0; r <= rows; ++r) {
-          const y = r * cellSize;
-          const dy = y - pos.y;
-          const rad2 = glowRadius * glowRadius;
-          if (Math.abs(dy) > glowRadius) continue;
-          const dx = Math.sqrt(rad2 - dy * dy);
-          let x1 = pos.x - dx;
-          let x2 = pos.x + dx;
-          x1 = Math.max(0, x1);
-          x2 = Math.min(w, x2);
-          if (x2 > x1) {
-            ctx.beginPath();
-            ctx.moveTo(x1, y);
-            ctx.lineTo(x2, y);
-            ctx.stroke();
-          }
+        ctx.restore();
+      });
+
+      // Glowing box borders (pulse effect)
+      pulses.current.forEach((pulse, index) => {
+        const age = now - pulse.startTime;
+        if (age > pulseDuration) return;
+        const opacity = Math.sin((age / pulseDuration) * Math.PI); // Sinusoidal fade-in/fade-out
+
+        ctx.save();
+        ctx.shadowColor = `rgba(${glowRGB},${0.6 * opacity})`; // Slightly fainter than mouse trail
+        ctx.shadowBlur = 12;
+        ctx.globalAlpha = opacity;
+        ctx.strokeStyle = lineColor;
+        ctx.lineWidth = 2;
+
+        const x = pulse.col * cellSize;
+        const y = pulse.row * cellSize;
+
+        if (x >= 0 && y >= 0 && x < w && y < h) {
+          ctx.beginPath();
+          ctx.strokeRect(x + 1, y + 1, cellSize - 2, cellSize - 2);
+          ctx.stroke();
         }
 
         ctx.restore();
@@ -140,10 +152,13 @@ export function Background() {
 
     function animate() {
       drawGrid();
-      // Clean up old positions
+      // Clean up old pulses and mouse positions
       const now = performance.now();
       mouseHistory.current = mouseHistory.current.filter(
         (pos) => now - pos.timestamp <= trailFadeDuration
+      );
+      pulses.current = pulses.current.filter(
+        (pulse) => now - pulse.startTime <= pulseDuration
       );
       animationFrameRef.current = requestAnimationFrame(animate);
     }
@@ -157,6 +172,7 @@ export function Background() {
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       document.removeEventListener('mousemove', handleMouseMove);
+      clearInterval(pulseTimer);
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }

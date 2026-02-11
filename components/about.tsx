@@ -12,7 +12,7 @@ export function About() {
   return (
     <section id="about" className="py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto backdrop-blur-xl rounded-2xl p-6 animate-fadeIn">
           <div ref={titleAnimation.ref}>
             <h2
               className={`text-3xl sm:text-4xl font-semibold mb-6 transition-all duration-700 ${
@@ -33,29 +33,30 @@ export function About() {
               }`}
             >
               <p className="text-lg text-muted-foreground">
-                I design and engineer products that feel intentional. The work is part architecture, part atmosphere, and
-                always about reducing friction for people doing real work.
+                I'm a software developer who enjoys building things that are simple, reliable, and easy to maintain.
               </p>
               <p className="text-lg text-muted-foreground">
-                I care about the quiet details: latency budgets, clean information hierarchy, and interfaces that make
-                complexity feel inevitable.
+                I mostly work on backend and system-level problems, but I care about the full product and how people actually use it.
               </p>
+              <p className="text-sm text-muted-foreground italic">
+                I value correctness over cleverness, and long-term reliability over quick wins.
+              </p>
+
               <div className="grid sm:grid-cols-3 gap-4" ref={cardsAnimation.ref}>
-                {[
-                  {
+                {[{
                     icon: Code,
-                    title: "Clean Code",
-                    copy: "Structured for longevity, readable by humans.",
-                  },
-                  {
-                    icon: Palette,
-                    title: "UI Precision",
-                    copy: "Visual systems with purpose and restraint.",
+                    title: "Clean Architecture",
+                    copy: "Clear boundaries, explicit contracts, and low coupling.",
                   },
                   {
                     icon: Zap,
-                    title: "Speed",
-                    copy: "Performance as a product feature.",
+                    title: "Performance",
+                    copy: "Latency-aware systems that scale predictably.",
+                  },
+                  {
+                    icon: Palette,
+                    title: "Intentional UI",
+                    copy: "Minimal interfaces that surface the right information.",
                   },
                 ].map((item, index) => (
                   <div

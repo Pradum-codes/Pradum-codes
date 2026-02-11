@@ -11,11 +11,11 @@ export function Hero() {
             <div className="space-y-4">
               <p className="text-xs font-mono uppercase tracking-[0.5em] text-muted-foreground">Systems / UI / Cloud</p>
               <h1 className="text-4xl sm:text-6xl lg:text-7xl font-semibold leading-[1.05] animate-fadeInUp">
-                I build black-first experiences for humans who move fast.
+                I build scalable software with clean architecture.
                 <span className="block text-primary mt-4">Pradum Kumar</span>
               </h1>
               <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl animate-fadeInUp [animation-delay:150ms] opacity-0 [animation-fill-mode:forwards]">
-                Full-stack engineer crafting sharp interfaces, resilient systems, and calm performance under pressure.
+                Software engineer focused on scalable systems, clean architecture, and performance.
               </p>
             </div>
 
@@ -60,30 +60,30 @@ export function Hero() {
                 <span className="text-xs font-mono text-primary">Available</span>
               </div>
               <p className="mt-4 text-lg">
-                Designing a new generation of data-driven products with high signal and low noise.
+                Building scalable systems with a focus on correctness, performance, and long-term maintainability.
               </p>
             </div>
 
-            <div className="border border-white/10 bg-card/50 rounded-2xl p-6">
+            <div className="border border-white/10 bg-card/50 backdrop-blur-xl rounded-2xl p-6 animate-fadeInRight">
               <p className="text-xs font-mono uppercase tracking-[0.4em] text-muted-foreground">Focus</p>
               <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
-                <span className="rounded-full border border-white/10 px-3 py-1">Realtime UI</span>
-                <span className="rounded-full border border-white/10 px-3 py-1">Design Systems</span>
-                <span className="rounded-full border border-white/10 px-3 py-1">Platform API</span>
-                <span className="rounded-full border border-white/10 px-3 py-1">Cloud Scale</span>
+                <span className="rounded-full border border-white/10 px-3 py-1">Backend System</span>
+                <span className="rounded-full border border-white/10 px-3 py-1">APIs & Databases</span>
+                <span className="rounded-full border border-white/10 px-3 py-1">Cloud & DevOps</span>
+                <span className="rounded-full border border-white/10 px-3 py-1">Android</span>
               </div>
             </div>
 
-            <div className="border border-white/10 bg-card/40 rounded-2xl p-6">
+            <div className="border border-white/10 bg-card/40 backdrop-blur-xl rounded-2xl p-6 animate-fadeInRight">
               <p className="text-xs font-mono uppercase tracking-[0.4em] text-muted-foreground">Signal</p>
               <p className="mt-3 text-sm text-muted-foreground">
-                Crisp typography, disciplined grids, and performance-first builds.
+                Clear abstractions, predictable behavior, and performance that holds under load.
               </p>
             </div>
           </div>
         </div>
 
-        <div className="mt-16 animate-bounce animate-pulse-glow">
+        <div className="mt-16 animate-pulse-glow">
           <ArrowDown className="h-6 w-6 mx-auto text-muted-foreground" />
         </div>
       </div>
