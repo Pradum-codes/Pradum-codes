@@ -101,7 +101,7 @@ export function Skills() {
             {skillCategories.map((category, index) => (
               <div
                 key={category.title}
-                className={`border border-white/10 bg-card/50 rounded-2xl p-6 transition-all duration-700 ${
+                className={`border border-border/70 bg-card/50 rounded-2xl p-6 transition-all duration-700 ${
                   cardsAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                 }`}
                 style={{ transitionDelay: `${index * 120}ms` }}
@@ -115,7 +115,7 @@ export function Skills() {
                     <Badge
                       key={skillIndex}
                       variant="secondary"
-                      className="flex items-center gap-2 bg-muted/60 border border-white/10 text-foreground/90 hover:text-primary transition-all duration-300 hover:scale-105"
+                      className="flex items-center gap-2 bg-muted/60 border border-border/70 text-foreground/90 hover:text-primary transition-all duration-300 hover:scale-105"
                     >
                       {skill.icon && <skill.icon className="w-4 h-4" />}
                       {skill.name}

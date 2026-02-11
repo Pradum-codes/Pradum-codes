@@ -79,7 +79,7 @@ export function Contact() {
             }`}
           >
             <div className="space-y-6">
-              <div className="border border-white/10 bg-card/50 rounded-2xl p-6">
+              <div className="border border-border/70 bg-card/50 rounded-2xl p-6">
                 <p className="text-xs font-mono uppercase tracking-[0.4em] text-muted-foreground">Signal</p>
                 <h3 className="text-2xl font-semibold mt-4">Let’s design something precise.</h3>
                 <p className="text-muted-foreground mt-4">
@@ -88,22 +88,22 @@ export function Contact() {
               </div>
 
               <div className="space-y-4">
-                <div className="flex items-center space-x-3 border border-white/10 bg-card/40 rounded-2xl p-4">
+                <div className="flex items-center space-x-3 border border-border/70 bg-card/40 rounded-2xl p-4">
                   <Mail className="h-5 w-5 text-primary" />
                   <span>pradumky803@gmail.com</span>
                 </div>
-                <div className="flex items-center space-x-3 border border-white/10 bg-card/40 rounded-2xl p-4">
+                <div className="flex items-center space-x-3 border border-border/70 bg-card/40 rounded-2xl p-4">
                   <Phone className="h-5 w-5 text-primary" />
                   <span>+91 7209854942</span>
                 </div>
-                <div className="flex items-center space-x-3 border border-white/10 bg-card/40 rounded-2xl p-4">
+                <div className="flex items-center space-x-3 border border-border/70 bg-card/40 rounded-2xl p-4">
                   <MapPin className="h-5 w-5 text-primary" />
                   <span>Jalandhar, Punjab</span>
                 </div>
               </div>
             </div>
 
-            <div className="border border-white/10 bg-card/60 rounded-3xl p-6 lg:p-8">
+            <div className="border border-border/70 bg-card/60 rounded-3xl p-6 lg:p-8">
               <div className="mb-6">
                 <p className="text-xs font-mono uppercase tracking-[0.4em] text-muted-foreground">Start</p>
                 <h3 className="text-2xl font-semibold mt-3">Send a brief</h3>
@@ -117,7 +117,7 @@ export function Contact() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="bg-background/40 border-white/10 focus:border-primary"
+                  className="bg-background/40 border-border/70 focus:border-primary"
                 />
                 <Input
                   name="email"
@@ -126,7 +126,7 @@ export function Contact() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="bg-background/40 border-white/10 focus:border-primary"
+                  className="bg-background/40 border-border/70 focus:border-primary"
                 />
                 <Textarea
                   name="message"
@@ -135,7 +135,7 @@ export function Contact() {
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  className="bg-background/40 border-white/10 focus:border-primary"
+                  className="bg-background/40 border-border/70 focus:border-primary"
                 />
                 <Button type="submit" className="w-full" disabled={loading}>
                   {loading ? "Sending..." : "Send Message"}

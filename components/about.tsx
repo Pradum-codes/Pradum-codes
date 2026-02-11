@@ -61,7 +61,7 @@ export function About() {
                 ].map((item, index) => (
                   <div
                     key={item.title}
-                    className={`border border-white/10 bg-card/60 rounded-2xl p-5 transition-all duration-700 ${
+                    className={`border border-border/70 bg-card/60 rounded-2xl p-5 transition-all duration-700 ${
                       cardsAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                     }`}
                     style={{ transitionDelay: `${index * 120}ms` }}
@@ -86,7 +86,7 @@ export function About() {
                   alt="Pradum Kumar"
                   width={320}
                   height={320}
-                  className="relative rounded-full border border-white/10 shadow-2xl"
+                  className="relative rounded-full border border-border/70 shadow-2xl"
                 />
               </div>
             </div>

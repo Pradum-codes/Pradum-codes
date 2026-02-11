@@ -3,7 +3,7 @@ import { GithubIcon, LinkedinIcon, Mail, TwitterIcon } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 py-12 backdrop-blur-xl">
+    <footer className="border-t border-border/70 py-12 backdrop-blur-xl">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <div className="flex justify-center space-x-6">

@@ -4,9 +4,6 @@ import { useEffect, useRef } from "react";
 import "@/styles/style.css";
 
 const cellSize = 70;
-const lineColor = '#222222';
-const lineOpacity = 0.02;
-const glowRGB = '154, 255, 120';
 const trailLength = 7; // Number of mouse positions for trailing effect
 const trailFadeDuration = 500; // Duration (ms) for trail to fade
 const pulseInterval = 500; // Time (ms) between new pulses
@@ -19,6 +16,12 @@ export function Background() {
   const animationFrameRef = useRef<number>(0);
   const mouseHistory = useRef<{ x: number; y: number; timestamp: number }[]>([]);
   const pulses = useRef<{ col: number; row: number; startTime: number }[]>([]);
+  const paintRef = useRef({
+    lineRGB: "34, 34, 34",
+    gridRGB: "192, 192, 192",
+    gridOpacity: 0.02,
+    glowRGB: "154, 255, 120",
+  });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -32,6 +35,21 @@ export function Background() {
     let h = window.innerHeight;
     let cols = Math.floor(w / cellSize);
     let rows = Math.floor(h / cellSize);
+
+    function refreshPaint() {
+      const styles = getComputedStyle(document.documentElement);
+      const lineRGB = styles.getPropertyValue("--canvas-line-rgb").trim();
+      const gridRGB = styles.getPropertyValue("--canvas-grid-rgb").trim();
+      const gridOpacity = Number(styles.getPropertyValue("--canvas-grid-opacity").trim());
+      const glowRGB = styles.getPropertyValue("--canvas-glow-rgb").trim();
+
+      paintRef.current = {
+        lineRGB: lineRGB || paintRef.current.lineRGB,
+        gridRGB: gridRGB || paintRef.current.gridRGB,
+        gridOpacity: Number.isFinite(gridOpacity) ? gridOpacity : paintRef.current.gridOpacity,
+        glowRGB: glowRGB || paintRef.current.glowRGB,
+      };
+    }
 
     function resizeCanvas() {
       w = window.innerWidth;
@@ -75,8 +93,10 @@ export function Background() {
       ctx.clearRect(0, 0, w, h);
       ctx.save();
 
+      const { lineRGB, gridRGB, gridOpacity, glowRGB } = paintRef.current;
+
       // Faint grid
-      ctx.strokeStyle = `rgba(192,192,192,${lineOpacity})`;
+      ctx.strokeStyle = `rgba(${gridRGB},${gridOpacity})`;
       ctx.lineWidth = 2;
       for (let c = 0; c <= cols; ++c) {
         const x = Math.round(c * cellSize) + 0.5;
@@ -105,7 +125,7 @@ export function Background() {
         ctx.shadowColor = `rgba(${glowRGB},${0.5 * opacity})`; // Reduced from 0.8 to 0.3
         ctx.shadowBlur = 12; // Reduced from 16 to 8
         ctx.globalAlpha = opacity * 0.6; // Additional opacity reduction
-        ctx.strokeStyle = lineColor;
+        ctx.strokeStyle = `rgb(${lineRGB})`;
         ctx.lineWidth = 1.5; // Reduced from 2.5 to 1.5
 
         const col = Math.floor(pos.x / cellSize);
@@ -132,7 +152,7 @@ export function Background() {
         ctx.shadowColor = `rgba(${glowRGB},${0.6 * opacity})`; // Slightly fainter than mouse trail
         ctx.shadowBlur = 12;
         ctx.globalAlpha = opacity;
-        ctx.strokeStyle = lineColor;
+        ctx.strokeStyle = `rgb(${lineRGB})`;
         ctx.lineWidth = 2;
 
         const x = pulse.col * cellSize;
@@ -164,6 +184,9 @@ export function Background() {
     }
 
     // Initialize
+    refreshPaint();
+    const themeObserver = new MutationObserver(refreshPaint);
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class", "style"] });
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
     document.addEventListener('mousemove', handleMouseMove);
@@ -172,6 +195,7 @@ export function Background() {
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       document.removeEventListener('mousemove', handleMouseMove);
+      themeObserver.disconnect();
       clearInterval(pulseTimer);
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);

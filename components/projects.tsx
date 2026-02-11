@@ -68,7 +68,7 @@ export function Projects() {
             {projects.map((project, index) => (
               <div
                 key={project.title}
-                className={`grid lg:grid-cols-[auto_1fr] gap-8 border border-white/10 bg-card/50 rounded-3xl p-6 lg:p-8 transition-all duration-700 ${
+                className={`grid lg:grid-cols-[auto_1fr] gap-8 border border-border/70 bg-card/50 rounded-3xl p-6 lg:p-8 transition-all duration-700 ${
                   projectsAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                 }`}
                 style={{ transitionDelay: `${index * 140}ms` }}
@@ -82,7 +82,7 @@ export function Projects() {
                 </div>
 
                 <div className="grid md:grid-cols-[1.1fr_0.9fr] gap-6 items-center">
-                  <div className="relative h-56 md:h-64 w-full overflow-hidden rounded-2xl border border-white/10">
+                  <div className="relative h-56 md:h-64 w-full overflow-hidden rounded-2xl border border-border/70">
                     <Image
                       src={project.image || "/placeholder.svg"}
                       alt={project.title}
@@ -96,7 +96,7 @@ export function Projects() {
                         <Badge
                           key={techIndex}
                           variant="outline"
-                          className="border-white/20 text-foreground/80"
+                          className="border-border/80 text-foreground/80"
                         >
                           {tech}
                         </Badge>

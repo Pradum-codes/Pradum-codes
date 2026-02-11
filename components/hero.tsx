@@ -54,7 +54,7 @@ export function Hero() {
           </div>
 
           <div className="space-y-6">
-            <div className="border border-white/10 bg-card/60 backdrop-blur-xl rounded-2xl p-6 animate-fadeInRight">
+            <div className="border border-border/70 bg-card/60 backdrop-blur-xl rounded-2xl p-6 animate-fadeInRight">
               <div className="flex items-center justify-between">
                 <p className="text-xs font-mono uppercase tracking-[0.4em] text-muted-foreground">Now</p>
                 <span className="text-xs font-mono text-primary">Available</span>
@@ -64,17 +64,17 @@ export function Hero() {
               </p>
             </div>
 
-            <div className="border border-white/10 bg-card/50 backdrop-blur-xl rounded-2xl p-6 animate-fadeInRight">
+            <div className="border border-border/70 bg-card/50 backdrop-blur-xl rounded-2xl p-6 animate-fadeInRight">
               <p className="text-xs font-mono uppercase tracking-[0.4em] text-muted-foreground">Focus</p>
               <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
-                <span className="rounded-full border border-white/10 px-3 py-1">Backend System</span>
-                <span className="rounded-full border border-white/10 px-3 py-1">APIs & Databases</span>
-                <span className="rounded-full border border-white/10 px-3 py-1">Cloud & DevOps</span>
-                <span className="rounded-full border border-white/10 px-3 py-1">Android</span>
+                <span className="rounded-full border border-border/70 px-3 py-1">Backend System</span>
+                <span className="rounded-full border border-border/70 px-3 py-1">APIs & Databases</span>
+                <span className="rounded-full border border-border/70 px-3 py-1">Cloud & DevOps</span>
+                <span className="rounded-full border border-border/70 px-3 py-1">Android</span>
               </div>
             </div>
 
-            <div className="border border-white/10 bg-card/40 backdrop-blur-xl rounded-2xl p-6 animate-fadeInRight">
+            <div className="border border-border/70 bg-card/40 backdrop-blur-xl rounded-2xl p-6 animate-fadeInRight">
               <p className="text-xs font-mono uppercase tracking-[0.4em] text-muted-foreground">Signal</p>
               <p className="mt-3 text-sm text-muted-foreground">
                 Clear abstractions, predictable behavior, and performance that holds under load.
