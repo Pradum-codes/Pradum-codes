@@ -1,10 +1,31 @@
 "use client"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { FaJava, FaPython, FaJs, FaReact, FaNodeJs, FaDocker, FaAws, FaGitAlt, FaLinux } from "react-icons/fa"
-import { SiCplusplus, SiKotlin, SiNextdotjs, SiTypescript, SiTailwindcss, SiHtml5, SiCss3, SiExpress, SiFastapi, SiPostgresql, SiMongodb, SiRedis, SiVercel, SiFigma, SiJetpackcompose, SiSpringboot } from "react-icons/si"
-import { BiLogoVisualStudio } from "react-icons/bi";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
+import {
+  FaJava,
+  FaPython,
+  FaJs,
+  FaReact,
+  FaNodeJs,
+  FaDocker,
+  FaAws,
+  FaGitAlt,
+  FaLinux,
+} from "react-icons/fa"
+import {
+  SiCplusplus,
+  SiKotlin,
+  SiNextdotjs,
+  SiTailwindcss,
+  SiCss3,
+  SiExpress,
+  SiPostgresql,
+  SiMongodb,
+  SiVercel,
+  SiJetpackcompose,
+  SiSpringboot,
+} from "react-icons/si"
+import { BiLogoVisualStudio } from "react-icons/bi"
 
 type Skill = {
   name: string
@@ -31,7 +52,7 @@ export function Skills() {
       skills: [
         { name: "React", icon: FaReact },
         { name: "Next.js", icon: SiNextdotjs },
-        { name: "Tailwind CSS", icon: SiTailwindcss },
+        { name: "Tailwind", icon: SiTailwindcss },
         { name: "CSS3", icon: SiCss3 },
         { name: "Jetpack Compose", icon: SiJetpackcompose },
       ],
@@ -40,14 +61,14 @@ export function Skills() {
       title: "Backend",
       skills: [
         { name: "Node.js", icon: FaNodeJs },
-        { name: "Express.js", icon: SiExpress },
+        { name: "Express", icon: SiExpress },
         { name: "PostgreSQL", icon: SiPostgresql },
         { name: "MongoDB", icon: SiMongodb },
-        { name: "SpringBoot", icon: SiSpringboot },
+        { name: "Spring Boot", icon: SiSpringboot },
       ],
     },
     {
-      title: "Tools & Technologies",
+      title: "Tools",
       skills: [
         { name: "Git", icon: FaGitAlt },
         { name: "Docker", icon: FaDocker },
@@ -57,53 +78,51 @@ export function Skills() {
         { name: "Linux", icon: FaLinux },
       ],
     },
-    {
-      title: "Soft Skills",
-      skills: [
-        { name: "Problem Solving" },
-        { name: "Communication" },
-        { name: "Project Management" },
-      ],
-    },
   ]
 
   return (
-    <section id="skills" className="py-20">
+    <section id="skills" className="py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div ref={titleAnimation.ref}>
-            <h2 className={`text-3xl sm:text-4xl font-bold text-center mb-12 transition-all duration-700 ${titleAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-              }`}>
-              Skills & Technologies
+            <h2
+              className={`text-3xl sm:text-4xl font-semibold mb-10 transition-all duration-700 ${
+                titleAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              }`}
+            >
+              Tool Matrix
             </h2>
           </div>
 
-          <div ref={cardsAnimation.ref} className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+          <div
+            ref={cardsAnimation.ref}
+            className="grid md:grid-cols-2 gap-6"
+          >
             {skillCategories.map((category, index) => (
-              <Card
-                key={index}
-                className={`transition-all duration-700 hover:scale-105 hover:shadow-xl ${cardsAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                  }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
+              <div
+                key={category.title}
+                className={`border border-border/70 bg-card/50 rounded-2xl p-6 transition-all duration-700 backdrop-blur-xl ${
+                  cardsAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                }`}
+                style={{ transitionDelay: `${index * 120}ms` }}
               >
-                <CardHeader>
-                  <CardTitle className="text-xl">{category.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-3">
-                    {category.skills.map((skill, skillIndex) => (
-                      <Badge
-                        key={skillIndex}
-                        variant="secondary"
-                        className="flex items-center gap-2 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-primary/50 cursor-pointer"
-                      >
-                        {skill.icon && <skill.icon className="w-4 h-4" />}
-                        {skill.name}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold">{category.title}</h3>
+                  <span className="text-xs font-mono text-muted-foreground">{category.skills.length} items</span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {category.skills.map((skill, skillIndex) => (
+                    <Badge
+                      key={skillIndex}
+                      variant="secondary"
+                      className="flex items-center gap-2 bg-muted/60 border border-border/70 text-foreground/90 hover:text-primary transition-all duration-300 hover:scale-105"
+                    >
+                      {skill.icon && <skill.icon className="w-4 h-4" />}
+                      {skill.name}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </div>

@@ -1,12 +1,98 @@
 "use client"
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ExternalLink, Github } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog"
+
+interface Project {
+  title: string
+  description: string
+  image: string
+  technologies: string[]
+  liveUrl: string
+  githubUrl: string
+}
+
+interface ProjectDialogProps {
+  project: Project
+}
+
+function ProjectDialog({ project }: ProjectDialogProps) {
+  return (
+    <DialogContent className="max-w-3xl p-0 overflow-hidden">
+      <DialogHeader className="p-6 pb-0">
+        <DialogTitle className="text-xl">
+          {project.title}
+        </DialogTitle>
+        <DialogDescription className="text-sm text-muted-foreground">
+          Detailed project overview
+        </DialogDescription>
+      </DialogHeader>
+
+      {/* Image */}
+      <div className="relative h-56 w-full mt-4">
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          className="object-cover"
+        />
+      </div>
+
+      {/* Body */}
+      <div className="p-6 space-y-5">
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          {project.description}
+        </p>
+
+        <div className="flex flex-wrap gap-2">
+          {project.technologies.map((tech) => (
+            <Badge key={tech} variant="secondary">
+              {tech}
+            </Badge>
+          ))}
+        </div>
+
+        <div className="flex gap-3 pt-2">
+          <Button asChild>
+            <Link
+              href={project.liveUrl}
+              target="_blank"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <ExternalLink className="h-4 w-4 mr-2" />
+              Live Demo
+            </Link>
+          </Button>
+
+          <Button variant="outline" asChild>
+            <Link
+              href={project.githubUrl}
+              target="_blank"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Github className="h-4 w-4 mr-2" />
+              GitHub
+            </Link>
+          </Button>
+        </div>
+      </div>
+    </DialogContent>
+  )
+}
+
+
 
 export function Projects() {
   const titleAnimation = useScrollAnimation({ threshold: 0.3 })
@@ -16,7 +102,7 @@ export function Projects() {
     {
       title: "Real Time Process Monitoring Dashboard",
       description:
-        "Create a graphical dashboard that displays real-time information about process states, CPU usage, and memory consumption.",
+        "Graphical dashboard that displays real-time process states, CPU usage, and memory consumption with low-latency updates.",
       image: "/projects/process-monitoring-dashboard.png",
       technologies: ["C++", "OpenGL", "GLFW"],
       liveUrl: "https://github.com/Pradum-codes/Real-Time-Process-Monitoring-Dashboard",
@@ -25,16 +111,16 @@ export function Projects() {
     {
       title: "Project Tracker App",
       description:
-        "A collaborative task management application built with Kotlin and Jetpack Compose. Real-time updates, team collaboration, and project tracking.",
+        "Collaborative task management application with real-time updates, team collaboration, and project tracking.",
       image: "/projects/project-tracker.jpg",
-      technologies: ["Kotlin", "Jetpack Compose", "Android Studios"],
+      technologies: ["Kotlin", "Jetpack Compose", "Android"],
       liveUrl: "https://github.com/Pradum-codes/Project-Tracker-App",
       githubUrl: "https://github.com/Pradum-codes/Project-Tracker-App",
     },
     {
       title: "Weather Dashboard",
       description:
-        "A responsive weather dashboard with location-based forecasts, interactive charts, and weather alerts using OpenWeather API.",
+        "Responsive weather dashboard with location-based forecasts, interactive charts, and alerting.",
       image: "/projects/weather-app.png",
       technologies: ["React", "OpenWeather API", "CSS3"],
       liveUrl: "https://github.com/Pradum-codes/Weather-App",
@@ -43,7 +129,7 @@ export function Projects() {
     {
       title: "CookClever",
       description:
-        "A modern, responsive Recipie Finder website which lets you find different recipes. Built with React and deployed on Vercel.",
+        "Modern recipe finder built with a fast search flow and clean discovery experience.",
       image: "/projects/cook-clever.png",
       technologies: ["Next.js", "Tailwind CSS", "Framer Motion", "Vercel"],
       liveUrl: "https://github.com/Pradum-codes/CookClever",
@@ -52,69 +138,88 @@ export function Projects() {
   ]
 
   return (
-    <section id="projects" className="py-20 bg-muted/50">
+    <section id="projects" className="py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div ref={titleAnimation.ref}>
-            <h2 className={`text-3xl sm:text-4xl font-bold text-center mb-12 transition-all duration-700 ${titleAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-              }`}>
-              Featured Projects
+            <h2
+              className={`text-3xl sm:text-4xl font-semibold mb-12 transition-all duration-700 ${
+                titleAnimation.isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-10"
+              }`}
+            >
+              Selected Work
             </h2>
           </div>
 
-          <div ref={projectsAnimation.ref} className="grid md:grid-cols-2 gap-8">
+          <div
+            ref={projectsAnimation.ref}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+          >
             {projects.map((project, index) => (
-              <Card
-                key={index}
-                className={`overflow-hidden transition-all duration-700 hover:scale-105 hover:shadow-2xl group ${projectsAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                  }`}
-                style={{ transitionDelay: `${index * 150}ms` }}
-              >
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src={project.image || "/placeholder.svg"}
-                    alt={project.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </div>
-                <CardHeader>
-                  <CardTitle className="group-hover:text-primary transition-colors duration-300">{project.title}</CardTitle>
-                  <CardDescription>{project.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.technologies.map((tech, techIndex) => (
-                      <Badge
-                        key={techIndex}
-                        variant="outline"
-                        className="transition-all duration-300 hover:scale-110 hover:shadow-md hover:shadow-primary/50"
-                      >
-                        {tech}
-                      </Badge>
-                    ))}
+              <Dialog key={project.title}>
+                {/* CARD = TRIGGER */}
+                <DialogTrigger asChild>
+                  <div
+                    className={`group cursor-pointer border border-border/70 bg-card/50 rounded-2xl overflow-hidden
+                    transition-[transform,box-shadow] duration-500
+                    hover:shadow-lg hover:-translate-y-1
+                    ${
+                      projectsAnimation.isVisible
+                        ? "opacity-100 translate-y-0"
+                        : "opacity-0 translate-y-10"
+                    }`}
+                    style={{ transitionDelay: `${index * 120}ms` }}
+                  >
+                    {/* Image */}
+                    <div className="relative h-36 w-full">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      />
+                      <span className="absolute top-3 left-3 text-xs font-mono text-white bg-black/50 rounded-full px-2 py-1">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-4 space-y-3">
+                      <div>
+                        <h3 className="text-lg font-semibold line-clamp-2">
+                          {project.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground line-clamp-2">
+                          {project.description}
+                        </p>
+                      </div>
+
+                      <div className="flex flex-wrap gap-1.5">
+                        {project.technologies.slice(0, 3).map((tech) => (
+                          <Badge
+                            key={tech}
+                            variant="outline"
+                            className="text-xs"
+                          >
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex gap-4">
-                    <Button size="sm" asChild className="transition-all hover:scale-105 hover:shadow-lg">
-                      <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="h-4 w-4 mr-2" />
-                        Live Demo
-                      </Link>
-                    </Button>
-                    <Button size="sm" variant="outline" asChild className="transition-all hover:scale-105 hover:shadow-lg">
-                      <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                        <Github className="h-4 w-4 mr-2" />
-                        Code
-                      </Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+                </DialogTrigger>
+
+                {/* DIALOG CONTENT */}
+                <ProjectDialog project={project} />
+              </Dialog>
             ))}
           </div>
+
         </div>
       </div>
     </section>
   )
 }
+
