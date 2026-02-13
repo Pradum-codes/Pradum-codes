@@ -122,9 +122,9 @@ export function Background() {
         const opacity = Math.pow(1 - age / trailFadeDuration, 2); // Quadratic fade for smoother trail
 
         ctx.save();
-        ctx.shadowColor = `rgba(${glowRGB},${0.5 * opacity})`; // Reduced from 0.8 to 0.3
+        ctx.shadowColor = `rgba(${glowRGB},${0.8 * opacity})`; // Reduced from 0.8 to 0.3
         ctx.shadowBlur = 12; // Reduced from 16 to 8
-        ctx.globalAlpha = opacity * 0.6; // Additional opacity reduction
+        ctx.globalAlpha = opacity * 1; // Additional opacity reduction
         ctx.strokeStyle = `rgb(${lineRGB})`;
         ctx.lineWidth = 1.5; // Reduced from 2.5 to 1.5
 
