@@ -101,7 +101,7 @@ export function Skills() {
             {skillCategories.map((category, index) => (
               <div
                 key={category.title}
-                className={`border border-border/70 bg-card/50 rounded-2xl p-6 transition-all duration-700 ${
+                className={`border border-border/70 bg-card/50 rounded-2xl p-6 transition-all duration-700 backdrop-blur-xl ${
                   cardsAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                 }`}
                 style={{ transitionDelay: `${index * 120}ms` }}
