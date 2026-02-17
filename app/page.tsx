@@ -5,6 +5,7 @@ import { Skills } from "@/components/skills"
 import { Projects } from "@/components/projects"
 import { Contact } from "@/components/contact"
 import { Footer } from "@/components/footer"
+import { Achievement } from "@/components/achievements/achievement";
 
 export default function Portfolio() {
     return (
@@ -15,6 +16,7 @@ export default function Portfolio() {
                 <About />
                 <Skills />
                 <Projects />
+                <Achievement />
                 <Contact />
             </main>
             <Footer />
