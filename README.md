@@ -79,6 +79,6 @@ commit 9f8e7d6
 
 *"First, solve the problem. Then, write the code."*
 
-![Visitor Count](https://komarev.com/ghpvc/?username=Pradum-codes&style=flat-square&color=58a6ff&label=profile+views)
+
 
 </div>
