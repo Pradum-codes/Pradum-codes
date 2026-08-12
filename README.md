@@ -61,24 +61,10 @@ commit 9f8e7d6
     - Studying core algorithms & model internals
     - Applying to real-world system design patterns
 ```
-
----
-
-## `$ top -stats`
-
-<div align="center">
-
-![GitHub Streak](https://streak-stats.demolab.com?user=Pradum-codes&hide_border=true&background=0d1117&ring=58a6ff&fire=58a6ff&currStreakLabel=58a6ff&sideLabels=c9d1d9&currStreakNum=c9d1d9&sideNums=c9d1d9&dates=6e7681)
-![Metrics](./github-metrics.svg)
-
-</div>
-
 ---
 
 <div align="center">
 
 *"First, solve the problem. Then, write the code."*
-
-
 
 </div>
